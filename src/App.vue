@@ -5,15 +5,10 @@
    <img class="img" v-if="visible" src="./assets/ture.png" @click="changeVisible()">
    <img class="img" v-else src="./assets/false.png" @click="changeVisible()">
    <div class="strengthTip">
+    <span v-if="strengthNum != 0">密码强度：</span>
     <div v-show="strengthNum > 0" class="tip1"></div>
     <div v-show="strengthNum >1" class="tip2"></div>
     <div v-show="strengthNum > 2" class="tip3"></div>
-    <div v-show="strengthNum > 3" class="tip4"></div>
-    <span v-if="strengthNum == 0" class="tipText"></span>
-    <span v-else-if="strengthNum == 1" style="color:#F24743" class="tipText">弱</span>
-    <span v-else-if="strengthNum == 2" style="color:#F9AE35" class="tipText">中</span>
-    <span v-else-if="strengthNum == 3" style="color:#2DAF7D" class="tipText">强</span>
-    <span v-else style="color:#4C9EFF" class="tipText">很强</span>
    </div>
   </div>
 </template>
@@ -25,32 +20,31 @@ export default {
     return {
       password: '',
       visible:false,
-      strengthNum: 0, //密码强度 0,1,2,3,4（弱、中、强、很强）
+      strengthNum: 0, //密码强度 1,2,3（弱、中、强）
     }
   },
   methods: {
+    // 改变是否显示密码状态
     changeVisible () {
       this.visible = !this.visible
     },
+    // 强度判断
     strength () {
       let num = 0;
       if(this.password.length < 6){//最初级别
-      num = 0;
-      }
-      if(/\d/.test(this.password)){//如果用户输入的密码 包含了数字
-      num++;
-      }
-      if(/[a-z]/.test(this.password)){//如果用户输入的密码 包含了小写的a到z
-      num++;
-      }
-      if(/[A-Z]/.test(this.password)){//如果用户输入的密码 包含了大写的A到Z
-      num++;
-      }
-      if(/\W/.test(this.password)){//如果是非数字 字母 下划线
-      num++;
+        num = 0;
+      } else {
+        if(/\d/.test(this.password)){//如果用户输入的密码 包含了数字
+        num++;
+        }
+        if(/[a-z]/.test(this.password) || /[A-Z]/.test(this.password)){//如果用户输入的密码 包含了小写的a到z
+        num++;
+        }
+        if(/\W/.test(this.password)){//如果是非数字 字母 下划线
+        num++;
+        }
       }
       this.strengthNum = num;
-      console.log(this.strengthNum)
     }
   }
 }
@@ -68,7 +62,7 @@ export default {
     outline: 0;
     box-shadow: none;
     border-radius: 10px 10px 10px 10px;
-    border: 2px solid #2DAF7D;
+    border: 2px solid #c4c7ce;
     background: #fff;
     color: #222;
     overflow: hidden;
@@ -86,14 +80,15 @@ export default {
   height: 20px;
   display: flex;
   flex-direction: row;
-  justify-content:center; //水平居中
-  align-items:center; //垂直居中
+  justify-content:center;
+  align-items:center;
   font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif
 }
-.tip1, .tip2, .tip3, .tip4{
-  width: 55px;
+.tip1, .tip2, .tip3{
+  width: 60px;
   height: 10px;
   border-radius: 3px;
+  box-shadow: 3px 3px 1px #c4c7ce;
 }
 .tip1{
   background-color: #F24743;
@@ -104,13 +99,6 @@ export default {
 }
 .tip3{
   background-color: #2DAF7D;
-  margin-left: 5px;
-}
-.tip4{
-  background-color: #4C9EFF;
-  margin-left: 5px;
-}
-.tipText{
   margin-left: 5px;
 }
 </style>
