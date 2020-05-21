@@ -14,11 +14,12 @@
 </template>
 <script>
 export default {
+  name: 'VuePasswordStrength',
   data () {
     return {
       password: '',
       visible:false,
-      strengthNum: 0, //密码强度 1,2,3（弱、中、强）
+      strengthNum: 0 // 密码强度 1,2,3（弱、中、强）
     }
   },
   methods: {
@@ -29,25 +30,28 @@ export default {
     // 强度判断
     strength () {
       let num = 0;
-      if(this.password.length < 6){//最初级别
-        num = 0;
+      if (this.password.length < 6) { // 最初级别
+        num = 0
       } else {
-        if(/\d/.test(this.password)){//如果用户输入的密码 包含了数字
-        num++;
+        if (/\d/.test(this.password)) { // 如果用户输入的密码 包含了数字
+          num++
         }
-        if(/[a-z]/.test(this.password) || /[A-Z]/.test(this.password)){//如果用户输入的密码 包含了小写的a到z
-        num++;
+        if (/[a-z]/.test(this.password) || /[A-Z]/.test(this.password)) { // 如果用户输入的密码 包含了小写的a到z
+          num++
         }
-        if(/\W/.test(this.password)){//如果是非数字 字母 下划线
-        num++;
+        if (/\W/.test(this.password)) { // 如果是非数字 字母 下划线
+          num++
         }
       }
-      this.strengthNum = num;
+      this.strengthNum = num
     }
   }
 }
 </script>
 <style lang="scss">
+#app{
+  position: fixed;
+}
 .password{
     width: 250px;
     height: 16px;

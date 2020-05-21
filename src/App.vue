@@ -1,14 +1,14 @@
 <template>
   <div id="app">
-    <password></password>
+    <VuePasswordStrength></VuePasswordStrength>
   </div>
 </template>
 
 <script>
-import password from './vue-password-strength.vue'
+import VuePasswordStrength from './vue-password-strength.vue'
 export default {
   name: 'app',
-  components: {password}
+  components: {VuePasswordStrength}
 }
 </script>
 
